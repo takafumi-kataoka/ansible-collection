@@ -334,6 +334,8 @@ def deploy(module, client: Client):
             data["hwe_kernel"] = module.params["deploy_params"]["hwe_kernel"]
         if module.params["deploy_params"]["user_data"]:
             data["user_data"] = module.params["deploy_params"]["user_data"]
+        if module.params["deploy_params"]["enable_hw_sync"]:
+            data["enable_hw_sync"] = module.params["deploy_params"]["enable_hw_sync"]
     machine.deploy(
         client, data, timeout
     )  # here we can get TimeoutError: timed out
@@ -374,6 +376,7 @@ def main():
                     timeout=dict(type="int"),
                     hwe_kernel=dict(type="str"),
                     user_data=dict(type="str"),
+                    enable_hw_sync=dict(type="bool"),
                 ),
             ),
             allocate_params=dict(
